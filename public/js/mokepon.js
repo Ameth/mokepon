@@ -1,3 +1,5 @@
+const API_URL = "http://192.168.1.10:8080";
+
 const sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
 const sectionReiniciar = document.getElementById("reiniciar");
 const sectionVerMapa = document.getElementById("ver-mapa");
@@ -155,7 +157,7 @@ function iniciarJuego() {
 
 function unirseAlJuego() {
   //Llamar al servidor Express para agregar el jugador
-  fetch("http://localhost:8080/join").then((res) => {
+  fetch(`${API_URL}/join`).then((res) => {
     if (res.ok) {
       res.text().then((respuesta) => {
         console.log(respuesta);
@@ -201,7 +203,7 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMokeponEnLinea(mascotaJugador) {
-  fetch(`http://localhost:8080/mokepon/${idJugador}`, {
+  fetch(`${API_URL}/mokepon/${idJugador}`, {
     method: "post",
     headers: {
       "Content-type": "application/json",
@@ -249,7 +251,7 @@ function dibujarCanvas() {
 
 function enviarPosicionEnLinea(x, y) {
   // Enviar la posicion del jugador en linea
-  fetch(`http://localhost:8080/mokepon/${idJugador}/pos`, {
+  fetch(`${API_URL}/mokepon/${idJugador}/pos`, {
     method: "post",
     headers: {
       "Content-type": "application/json",
@@ -504,7 +506,7 @@ function secuenciaAtaque() {
 
 function enviarAtaque() {
   //Enviar un ataque al enemigo
-  fetch(`http://localhost:8080/mokepon/${idJugador}/atacar`, {
+  fetch(`${API_URL}/mokepon/${idJugador}/atacar`, {
     method: "post",
     headers: {
       "Content-type": "application/json",
@@ -517,7 +519,7 @@ function enviarAtaque() {
 }
 
 function obtenerAtaquesEnemigo() {
-  fetch(`http://localhost:8080/mokepon/${idEnemigo}/atacar`).then((res) => {
+  fetch(`${API_URL}/mokepon/${idEnemigo}/atacar`).then((res) => {
     if (res.ok) {
       res.json().then(({ ataques }) => {
         ataqueEnemigo = ataques;
