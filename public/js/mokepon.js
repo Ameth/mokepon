@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.1.10:8080";
+const API_URL = "http://192.168.0.177:8080";
 
 const sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
 const sectionReiniciar = document.getElementById("reiniciar");
@@ -22,6 +22,9 @@ const spanVidasEnemigo = document.getElementById("vidas-enemigo");
 const sectionMensajes = document.getElementById("resultado");
 const ataquesDelJugador = document.getElementById("ataques-del-jugador");
 const ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
+
+const overlay = document.getElementById("overlay");
+const modal = document.getElementById("modal");
 
 let idJugador = null;
 let idEnemigo = null;
@@ -498,6 +501,7 @@ function secuenciaAtaque() {
       // console.log("Jugador", ataqueJugador);
       // ataqueAleatorioEnemigo();
       enviarAtaque();
+      toggleModal(true);
     });
   });
 
@@ -563,6 +567,7 @@ function combateEnLinea() {
     ataqueEnemigo.length > indexAtak &&
     ataqueJugador.length === ataqueEnemigo.length
   ) {
+    toggleModal(false);
     if (ataqueJugador[indexAtak] === ataqueEnemigo[indexAtak]) {
       crearMensaje(
         "EMPATE",
@@ -739,6 +744,16 @@ function crearMensajeFinal(resultadoFinal) {
   // Crear el mensaje final del resultado de la batalla
   sectionMensajes.innerHTML = resultadoFinal;
   sectionReiniciar.style.display = "block";
+}
+
+function toggleModal(estado = false) {
+  if (estado) {
+    overlay.classList.add("active");
+    modal.classList.add("active");
+  } else {
+    overlay.classList.remove("active");
+    modal.classList.remove("active");
+  }
 }
 
 function reiniciarJuego() {
