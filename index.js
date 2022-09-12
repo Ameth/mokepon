@@ -11,7 +11,7 @@ app.use(express.json());
 
 const port = 8080;
 
-const jugadores = [];
+let jugadores = [];
 
 class Jugador {
   constructor(id) {
@@ -47,6 +47,15 @@ app.get("/join", (req, res) => {
 
   res.send(id);
   //   res.send(jugadores);
+});
+
+app.get("/reset", (req, res) => {
+  const arLimpio = jugadores.filter((item) => {
+    return !item.mokepon;
+  });
+  jugadores = arLimpio;
+
+  res.end();
 });
 
 app.post("/mokepon/:idJugador", (req, res) => {

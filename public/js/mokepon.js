@@ -758,7 +758,11 @@ function toggleModal(estado = false) {
 
 function reiniciarJuego() {
   // Recargar la página para reiniciar el juego
-  location.reload();
+  fetch(`${API_URL}/reset`).then((res) => {
+    if (res.ok) {
+      location.reload();
+    }
+  });
 }
 
 function aleatorio(min, max) {
